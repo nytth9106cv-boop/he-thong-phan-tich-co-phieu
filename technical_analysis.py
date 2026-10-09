@@ -364,12 +364,12 @@ def _streamlit_demo():
     c2.metric("Xu hướng", r["trend"])
     c3.metric("Động lượng", r["momentum"])
     st.caption(f"Dữ liệu đến ngày {r['as_of']}")
-    st.plotly_chart(r["figure"], use_container_width=True)
+    st.plotly_chart(r["figure"], width="stretch")
 
     st.subheader("Giải thích tín hiệu")
     st.write(f"**Xu hướng:** {r['trend_explain']}")
     st.write(f"**Động lượng:** {r['momentum_explain']}")
-    st.dataframe(pd.DataFrame(r["reasons"])[["rule", "label", "explain"]], use_container_width=True, hide_index=True)
+    st.dataframe(pd.DataFrame(r["reasons"])[["rule", "label", "explain"]], width="stretch", hide_index=True)
     for n in r["notes"]:
         st.info(n)
 
