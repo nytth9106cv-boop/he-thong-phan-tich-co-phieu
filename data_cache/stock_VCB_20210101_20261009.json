@@ -1,0 +1,28 @@
+{
+ "symbol": "VCB",
+ "source": "DNSE (Entrade) - https://services.entrade.com.vn/chart-api/v2/ohlcs/stock",
+ "fetched_at": "2026-10-09 09:47:33",
+ "n_raw": 1436,
+ "n_clean": 1435,
+ "start": "2021-01-04",
+ "end": "2026-10-08",
+ "price_unit_detected": "thousand_vnd",
+ "issues": [
+  {
+   "level": "warning",
+   "code": "DUPLICATE",
+   "message": "Loại 1 dòng trùng ngày (giữ dòng cuối).",
+   "count": 1,
+   "examples": []
+  },
+  {
+   "level": "info",
+   "code": "UNIT",
+   "message": "Nguồn trả giá theo nghìn đồng: đã nhân 1,000 để chuẩn hóa về đồng (VND).",
+   "count": 0,
+   "examples": []
+  }
+ ],
+ "score": 99.46518105849582,
+ "grade": "Tốt"
+}
