@@ -27,9 +27,8 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 # ----------------------------------------------------------------------------
-# 1. NẠP DỮ LIỆU  (sửa DATA_PATH_TEMPLATE / hàm load_price_data cho khớp dữ liệu bạn đã cào)
+# 1. NẠP DỮ LIỆU 
 # ----------------------------------------------------------------------------
-DATA_PATH_TEMPLATE = "data/prices/{symbol}.csv"   # <-- sửa theo cấu trúc thư mục của bạn
 
 _COLUMN_ALIASES = {
     "date": ["date", "time", "datetime", "ngay", "ngày", "tradingdate", "trading_date"],
@@ -42,13 +41,9 @@ _COLUMN_ALIASES = {
 
 
 def load_price_data(symbol: str) -> pd.DataFrame:
-    """Đọc dữ liệu giá của 1 mã. Sửa hàm này nếu bạn lưu dưới dạng parquet/DB."""
-    path = DATA_PATH_TEMPLATE.format(symbol=symbol.upper())
-    if not os.path.exists(path):
-        raise FileNotFoundError(f"Không tìm thấy dữ liệu của mã {symbol}: {path}")
-    if path.endswith(".parquet"):
-        return pd.read_parquet(path)
-    return pd.read_csv(path)
+    """Dùng bộ nạp dữ liệu của TV1 (có cache, nguồn dự phòng, báo lỗi tiếng Việt)."""
+    from data_loader import load_stock_data
+    return load_stock_data(symbol)          # mặc định lấy 5 năm gần nhất
 
 
 def _normalize(df: pd.DataFrame) -> pd.DataFrame:
