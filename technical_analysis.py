@@ -85,6 +85,7 @@ def compute_indicators(df: pd.DataFrame) -> pd.DataFrame:
     # Trung bình động
     df["sma20"] = c.rolling(20).mean()
     df["sma50"] = c.rolling(50).mean()
+    df["sma200"] = c.rolling(200).mean()
     df["ema12"] = c.ewm(span=12, adjust=False).mean()
     df["ema26"] = c.ewm(span=26, adjust=False).mean()
 
@@ -270,7 +271,7 @@ def evaluate_signals(df: pd.DataFrame) -> dict:
 def build_figure(df: pd.DataFrame, symbol: str = "", last_n: Optional[int] = 250) -> go.Figure:
     """Biểu đồ 4 panel: Nến + SMA/EMA/Bollinger | Khối lượng | RSI | MACD."""
     d = df.tail(last_n) if last_n else df
-    up, down = "#16a34a", "#dc2626"
+    up, down = "#097d33", "#dc2626"
 
     fig = make_subplots(
         rows=4, cols=1, shared_xaxes=True, vertical_spacing=0.03,
@@ -287,6 +288,7 @@ def build_figure(df: pd.DataFrame, symbol: str = "", last_n: Optional[int] = 250
     fig.add_trace(go.Scatter(x=d["date"], y=d["bb_lower"], line=dict(color="rgba(120,120,120,.6)", width=1, dash="dot"),
                              fill="tonexty", fillcolor="rgba(120,120,120,.08)", name="BB dưới"), row=1, col=1)
     for col, color, name in [("sma20", "#f59e0b", "SMA20"), ("sma50", "#2563eb", "SMA50"),
+                             ("sma200", "#111827", "SMA200"),
                              ("ema12", "#a855f7", "EMA12"), ("ema26", "#0d9488", "EMA26")]:
         fig.add_trace(go.Scatter(x=d["date"], y=d[col], line=dict(color=color, width=1.3), name=name), row=1, col=1)
 
